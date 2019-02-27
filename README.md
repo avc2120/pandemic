@@ -1,5 +1,4 @@
-# hackdevweek
-https://docs.google.com/document/d/1R55EwXVS2C9KcBIw1Myorzw89gxO2ZA-_U56idqWapM/edit
+# Developer Week Hackathon - Pandemic
 
 # Setup
 Run `./setup.sh`
