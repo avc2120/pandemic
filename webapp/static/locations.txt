@@ -1,0 +1,17 @@
+UCSF Medical Center,37.763078,-122.4599797
+Stanford Hospital,37.433011,-122.1771767
+Kaiser Permanent (Seattle),47.619242,-122.3131761
+Harbor - UCLA,33.828789,-118.2993979
+Thornton Pavillion,32.877962,-117.2271919
+Mount Sinai,40.768087,-73.9270627
+Zuckerberg San Francisco General Hospital and Trauma Center, 37.755573, -122.405126
+California Pacific Medical Center Davies Campus, 37.768840, -122.434616
+UCSF Benioff Children's Hospital, 37.765056, -122.390116
+Saint Francis Memorial Hospital, 37.789982, -122.416674
+California Pacific Medical Center Davies Campus, 37.768646, -122.434637
+UCSF Benioff Children's Hospital, 37.765098, -122.390137
+California Pacific Medical Center: Pacific Campus, 37.791508, -122.431137
+Kentfield Hospital San Francisco, 37.774233, -122.453605
+Stanford Children's Health Center, 37.787257, -122.455550
+University of California San Francisco Medical Center, 37.766028, -122.458184
+San Francisco VA Medical Center, 37.782761, -122.505250

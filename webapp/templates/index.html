@@ -1,0 +1,147 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-T5jhQKMh96HMkXwqVMSjF3CmLcL1nT9//tCqu9By5XSdj7CwR0r+F3LTzUdfkkQf" crossorigin="anonymous">
+  <script type="text/javascript" src="{{ url_for('static', filename='hackdevweek.js') }}"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='hackdevweek.css') }}">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+
+  <!-- Nav Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <img class="pandemic-icon" src="{{ url_for('static', filename='pandemic.jpg') }}"></img>
+    <a class="navbar-brand" href="#">&nbsp;&nbsp;Pandemic</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <a class="btn btn-secondary my-2 my-sm-0" style="display:inline-block" data-toggle="modal" data-target="#myModal">Report Disease</a>
+      </form>
+    </div>
+  </nav>
+
+  <!-- Alert -->
+  <div class="alert alert-dismissible alert-danger virus-alert collapse">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4 class="alert-heading">ALERT</h4>
+    <p class="mb-0">There has been a confirmed case of the Hepatitis A (Hep A) virus in your area!</p>
+  </div>
+
+  <!-- Search -->
+  <form action="/setLocation" method="GET">
+    <div class="input-group" id="locationInput">
+      <input type="text" class="form-control" name="location" placeholder="Not here? Set a location.">
+      <div class="input-group-append">
+        <button class="input-group-text" id="setLocation" type="submit">GO
+        </button>
+      </div>
+    </div>
+  </form>
+
+
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog" style="width:1250px;">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Report</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body modal-body-1">
+          <form>
+            <fieldset>
+              <div class="form-group">
+                <label>Infectious Disease</label>
+                <input type="text" class="form-control" id="disease" placeholder="Enter the disease to report" required>
+              </div>
+              <div class="form-group">
+                <label>Gender</label>
+                <small id="genderHelp" class="form-text text-muted">Select the hospital where disease was identified</small>
+                <select class="custom-select" aria-describedby="genderHelp">
+                  <option value="male" selected="">Male</option>
+                  <option value="female">Female</option>
+                  <option value="non-binary">Non-binary</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Age</label>
+                <input type="text" class="form-control" id="age" placeholder="Enter the age of the patient">
+              </div>
+              <div class="form-group">
+                <label>Hospital Location</label>
+                <small id="hospitalHelp" class="form-text text-muted">Select the gender of the patient</small>
+                <select class="custom-select" aria-describedby="hospitalHelp">
+                  <option value="smmc" selected="">Saint Mary's Medical Center</option>
+                  <option value="schc">Stanford Children's Health Center</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Date of first Symptoms</label>
+                <input type="text" id="datepicker" placeholder="Date" required>
+              </div>
+
+              <div class="form-group">
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                  <label class="custom-control-label" for="customSwitch1">Submit to CDC</label>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <iframe class="modal-body-2 hidden" id="modal-body-2" frameBorder="0" height="500" src="/template_1"></iframe>
+        <iframe class="modal-body-3 hidden" id="modal-body-3" frameBorder="0" height="500" src="/template_2"></iframe>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="hack-next">Next</button>
+          <button type="button" class="btn btn-primary collapse" id="modal-close-button" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Map -->
+  <div id="map"></div>
+  <script>
+    var map;
+    function initMap() {
+      var longitude = parseFloat('{{ longitude }}');
+      var latitude = parseFloat('{{ latitude }}');
+
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: { lat: latitude, lng: longitude}
+      });
+
+      readTextFile("{{ url_for('static', filename='locations.txt') }}");
+    }
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaxgQcPNLVE-_-SxdbzwVIhsbjARVE0Lk&libraries=visualization&callback=initMap">
+  </script>
+</body>
+
+</html>
