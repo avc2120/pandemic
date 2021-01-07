@@ -20,7 +20,7 @@ itsdangerous==1.1.0
 Jinja2==2.10
 jsonschema==2.6.0
 jwcrypto==0.6.0
-lxml==4.3.1
+lxml==4.6.2
 MarkupSafe==1.1.0
 protobuf==3.6.1
 py-oauth2==0.0.10
