@@ -22,7 +22,7 @@ jsonschema==2.6.0
 jwcrypto==0.6.0
 lxml==4.3.1
 MarkupSafe==1.1.0
-protobuf==3.6.1
+protobuf==3.15.0
 py-oauth2==0.0.10
 pycparser==2.19
 pydocusign==2.2
